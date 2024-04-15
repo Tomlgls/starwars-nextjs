@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Loader } from "@/components/ui/loader";
 import {
   Pagination,
   PaginationContent,
@@ -28,16 +29,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { z } from "zod";
 
-// TODO
-// The provided count is the total number of items and not the total number of pages
-// We need to calculate the number of pages based on the limit, which is 10
+// TO DO
+// The provided count is the total number of items and not the total number of pages.
+// We need to calculate the number of pages based on the limit, which is 10 : 60 / 10
+// We display previous and next button based on API return, we could do it based on the count.
 
-// But if count is < limit, we should handle it
 const limit = 10;
 
 const RangeIndexSchema = z.object({
   page: z.number(),
-  type: z.string(),
+  type: z.enum(["page", "ellipsis"]),
 });
 
 type RangeIndex = z.infer<typeof RangeIndexSchema>;
@@ -45,37 +46,52 @@ type RangeIndex = z.infer<typeof RangeIndexSchema>;
 // Build the pagination numbers
 // count: total number of items
 // page: current page
+// delta: number of pages to show before and after the current page
 function buildPagination(count: number, page: number): RangeIndex[] {
-  const delta = 3; // Number of pages to show before and after the current page, if you want to change it, you need to change the logic below by adding more pages
-  const range = [];
+  const delta = 3;
+  const range: RangeIndex[] = [];
 
-  const type = "page"; // Type of the index
+  const type = "page";
 
-  if (page > count - delta) {
-    // If the current page is close to the end
-    range.push(
-      { page: 1, type },
-      { page: count - 3, type: "ellipsis" },
-      { page: count - 2, type },
-      { page: count - 1, type },
-      { page: count, type }
-    );
+  if (count > 1) {
+    if (page > count - delta) {
+      // If the current page is close to the end
+      for (let i = count + 1 - delta; i <= count; i++) {
+        if (i !== 0) range.push({ page: i, type });
+      }
+
+      if (count > delta) {
+        range.unshift({ page: count - delta, type: "ellipsis" });
+      }
+    } else {
+      for (let i = 1; i <= count; i++) {
+        if (i <= delta) {
+          range.push({ page: i, type });
+        } else {
+          range.push({ page: i, type: "ellipsis" });
+          break;
+        }
+      }
+
+      if (delta < count) {
+        range.push({ page: count, type });
+      }
+    }
   } else {
-    range.push(
-      { page, type },
-      { page: page + 1, type },
-      { page: page + 2, type },
-      { page: page + 3, type: "ellipsis" },
-      { page: count, type }
-    );
+    return [{ page, type }];
   }
 
   return range;
 }
 
+// Calculate the number of pages based on the count and limit
+function getPaginationCount(count: number, limit: number) {
+  return Math.ceil(count / limit);
+}
+
 export default function PlanetsContent() {
-  const [page, setPage] = useState(1); // Here we use a local state to manage pagination but we could use a reducer for keep it in app memory
-  const { error, data } = usePlanets(page.toString());
+  const [page, setPage] = useState(1);
+  const { error, data, isFetching } = usePlanets(page.toString());
 
   const renderPagination = (rangeIndex: RangeIndex, page: number) => {
     if (rangeIndex.type === "ellipsis") {
@@ -166,15 +182,20 @@ export default function PlanetsContent() {
                       />
                     </PaginationItem>
                   )}
-                  {buildPagination(data.count / limit, page).map((index) =>
-                    renderPagination(index, page)
-                  )}
+                  {buildPagination(
+                    getPaginationCount(data.count, limit),
+                    page
+                  ).map((index) => renderPagination(index, page))}
                   {data.next && (
                     <PaginationItem>
-                      <PaginationNext
-                        className="cursor-pointer"
-                        onClick={() => setPage((p) => p + 1)}
-                      />
+                      {isFetching ? (
+                        <Loader />
+                      ) : (
+                        <PaginationNext
+                          className="cursor-pointer"
+                          onClick={() => setPage((p) => p + 1)}
+                        />
+                      )}
                     </PaginationItem>
                   )}
                 </PaginationContent>

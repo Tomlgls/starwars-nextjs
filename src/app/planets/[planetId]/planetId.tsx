@@ -87,7 +87,7 @@ export default function PlanetId({ id }: { id: string }) {
                   ))}
                 </div>
               ) : (
-                "No planet found."
+                "No film found."
               )}
             </div>
           </>
@@ -95,7 +95,9 @@ export default function PlanetId({ id }: { id: string }) {
         {!planet ? (
           <Alert>
             <AlertTriangle />
-            <AlertTitle className="ml-2">N for this planet.</AlertTitle>
+            <AlertTitle className="ml-2">
+              No information for this planet.
+            </AlertTitle>
             <AlertDescription className="ml-2">
               Please come back later.
             </AlertDescription>
