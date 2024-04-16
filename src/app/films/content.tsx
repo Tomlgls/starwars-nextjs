@@ -1,5 +1,6 @@
 "use client";
 
+import { Comments, defaultComments } from "@/atoms/films-atoms";
 import { LayoutContent } from "@/components/layout/Layout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -14,13 +15,16 @@ import {
 import { Typography } from "@/components/ui/typography";
 import { useFilms } from "@/data/get-films";
 import { getIdFromUrl } from "@/lib/utils";
-import { AlertTriangle } from "lucide-react";
+import { useAtom } from "jotai";
+import { AlertTriangle, MessagesSquare } from "lucide-react";
 import Link from "next/link";
 
 export default function FilmsContent() {
   // This useQuery could just as well happen in some deeper
   // child to <Films>, data will be available immediately either way
   const { error, data } = useFilms();
+
+  const [comments] = useAtom<Comments>(defaultComments);
 
   if (error) {
     return (
@@ -70,17 +74,16 @@ export default function FilmsContent() {
                   </CardContent>
                   <CardFooter className="flex justify-between">
                     <Button variant="outline">See details</Button>
+                    {comments && comments[getIdFromUrl(film.url)] && (
+                      <div className="flex items-center gap-1 text-muted-foreground">
+                        <MessagesSquare size={20} />
+                        <Typography variant="small">
+                          {comments[getIdFromUrl(film.url)].length}
+                        </Typography>
+                      </div>
+                    )}
                   </CardFooter>
                 </Card>
-
-                {/* {state.data[getIdFromUrl(film.url)] && state.data[getIdFromUrl(film.url)].rating && (
-                      <div className="mt-4">
-                        <RateInput
-                          value={state.data[getIdFromUrl(film.url)].rating}
-                          readonly
-                        />
-                      </div>
-                    )} */}
               </Link>
             ))
           : false}
