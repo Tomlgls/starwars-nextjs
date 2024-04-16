@@ -32,9 +32,15 @@ export default function Home() {
           API for get information about the Star Wars universe.
         </Typography>
         <div className="mt-4">
-          <Button variant="outline" className="gap-2">
-            <GitHubLogoIcon /> Git repository
-          </Button>
+          <a
+            href="https://github.com/Tomlgls/starwars-nextjs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="outline" className="gap-2">
+              <GitHubLogoIcon /> Git repository
+            </Button>
+          </a>
         </div>
       </section>
       <hr className="my-8 divide-y" />
