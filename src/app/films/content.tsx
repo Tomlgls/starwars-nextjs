@@ -53,7 +53,7 @@ export default function FilmsContent() {
                 key={getIdFromUrl(film.url)}
                 href={`/films/${getIdFromUrl(film.url)}`}
               >
-                <Card className="hover:bg-zinc-900">
+                <Card className="hover:bg-zinc-200 dark:hover:bg-zinc-900">
                   <CardHeader>
                     <CardTitle>
                       {getIdFromUrl(film.url)} &#8901; {film.title}

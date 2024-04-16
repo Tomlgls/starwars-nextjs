@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import {
   Layout,
@@ -22,27 +23,37 @@ import Link from "next/link";
 import Planet from "./planet";
 
 export default function FilmId({ id }: { id: string }) {
-  const { error, data: film } = useFilm(id);
+  const { error, data: film, isPending } = useFilm(id);
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   if (error) {
     return (
-      <Alert>
-        <AlertTriangle />
-        <AlertTitle className="ml-2">An error occured.</AlertTitle>
-        <AlertDescription className="ml-2">Please try again.</AlertDescription>
-      </Alert>
+      <Layout>
+        <Alert>
+          <AlertTriangle />
+          <AlertTitle className="ml-2">An error occured.</AlertTitle>
+          <AlertDescription className="ml-2">
+            Please try again.
+          </AlertDescription>
+        </Alert>
+      </Layout>
     );
   }
 
   if (!film) {
     return (
-      <Alert>
-        <AlertTriangle />
-        <AlertTitle className="ml-2">No result for this film.</AlertTitle>
-        <AlertDescription className="ml-2">
-          Please come back later.
-        </AlertDescription>
-      </Alert>
+      <Layout>
+        <Alert>
+          <AlertTriangle />
+          <AlertTitle className="ml-2">No result for this film.</AlertTitle>
+          <AlertDescription className="ml-2">
+            Please come back later.
+          </AlertDescription>
+        </Alert>
+      </Layout>
     );
   }
 

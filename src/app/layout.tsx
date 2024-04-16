@@ -5,6 +5,7 @@ import { SiteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Head from "next/head";
 import { PropsWithChildren, ReactNode } from "react";
 import { Providers } from "./Providers";
 import "./globals.css";
@@ -14,6 +15,7 @@ const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: SiteConfig.title,
   description: SiteConfig.description,
+  robots: "noindex, nofollow",
 };
 
 export default function RootLayout({
@@ -24,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
-      <head />
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </Head>
       <body
         className={cn(
           "h-full bg-background font-sans antialiased",
@@ -34,7 +38,7 @@ export default function RootLayout({
         <Providers>
           <div className="relative flex min-h-screen flex-col">
             <Header />
-            <div className="flex-1">{children}</div>
+            <main className="flex-1">{children}</main>
             <Footer />
           </div>
           <TailwindIndicator />

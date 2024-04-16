@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import {
   Layout,
@@ -22,15 +23,37 @@ import Link from "next/link";
 import Film from "./film";
 
 export default function PlanetId({ id }: { id: string }) {
-  const { error, data: planet } = usePlanet(id);
+  const { error, data: planet, isPending } = usePlanet(id);
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   if (error) {
     return (
-      <Alert>
-        <AlertTriangle />
-        <AlertTitle className="ml-2">An error occured.</AlertTitle>
-        <AlertDescription className="ml-2">Please try again.</AlertDescription>
-      </Alert>
+      <Layout>
+        <Alert>
+          <AlertTriangle />
+          <AlertTitle className="ml-2">An error occured.</AlertTitle>
+          <AlertDescription className="ml-2">
+            Please try again.
+          </AlertDescription>
+        </Alert>
+      </Layout>
+    );
+  }
+
+  if (!planet) {
+    return (
+      <Layout>
+        <Alert>
+          <AlertTriangle />
+          <AlertTitle className="ml-2">No result for this planet.</AlertTitle>
+          <AlertDescription className="ml-2">
+            Please come back later.
+          </AlertDescription>
+        </Alert>
+      </Layout>
     );
   }
 
@@ -91,19 +114,6 @@ export default function PlanetId({ id }: { id: string }) {
               )}
             </div>
           </>
-        )}
-        {!planet ? (
-          <Alert>
-            <AlertTriangle />
-            <AlertTitle className="ml-2">
-              No information for this planet.
-            </AlertTitle>
-            <AlertDescription className="ml-2">
-              Please come back later.
-            </AlertDescription>
-          </Alert>
-        ) : (
-          false
         )}
         <hr className="my-8 divide-y" />
         <Navigation href="/planets" text="Back to planets list" />

@@ -146,7 +146,7 @@ export default function PlanetsContent() {
                 key={getIdFromUrl(planet.url)}
                 href={`/planets/${getIdFromUrl(planet.url)}`}
               >
-                <Card className="hover:bg-zinc-900">
+                <Card className="hover:bg-zinc-200 dark:hover:bg-zinc-900">
                   <CardHeader>
                     <CardTitle>
                       {getIdFromUrl(planet.url)} &#8901; {planet.name}

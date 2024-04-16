@@ -5,16 +5,25 @@ import {
   keepPreviousData,
   useQuery,
 } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
 
 export const getPlanets: (page?: string) => Promise<PlanetsResponse> = async (
   page: string = "1"
 ) =>
   fetch(`${SiteConfig.api_url}/planets?page=${page}`)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        if (res.status === 404) {
+          notFound();
+        }
+        throw new Error("An error occured.");
+      }
+
+      return res.json();
+    })
     .then(PlanetsResponseScheme.parse)
     .catch((error) => {
-      console.log(error);
-      return error;
+      throw new Error(error);
     });
 
 export function usePlanets(
@@ -24,5 +33,6 @@ export function usePlanets(
     queryKey: ["planets", page],
     queryFn: () => getPlanets(page),
     placeholderData: keepPreviousData,
+    retry: false,
   });
 }

@@ -1,5 +1,6 @@
 export const SiteConfig = {
   title: "Star wars API",
-  description: "Learn how to build a personal website using Next.js",
+  description:
+    "React playground for using NextJs and other components based on the latest standards.",
   api_url: "https://swapi.dev/api",
 } as const;
