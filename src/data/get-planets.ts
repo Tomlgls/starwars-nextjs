@@ -5,12 +5,13 @@ import {
   keepPreviousData,
   useQuery,
 } from "@tanstack/react-query";
+import ky from "ky";
 import { notFound } from "next/navigation";
 
 export const getPlanets: (page?: string) => Promise<PlanetsResponse> = async (
   page: string = "1"
 ) =>
-  fetch(`${SiteConfig.api_url}/planets?page=${page}`)
+  ky(`${SiteConfig.api_url}/planets?page=${page}`)
     .then((res) => {
       if (!res.ok) {
         if (res.status === 404) {

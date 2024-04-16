@@ -1,10 +1,11 @@
 import { SiteConfig } from "@/lib/site-config";
 import { FilmsResponse, FilmsResponseScheme } from "@/types/film.schema";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import ky from "ky";
 import { notFound } from "next/navigation";
 
 export const getFilms: () => Promise<FilmsResponse> = async () =>
-  fetch(`${SiteConfig.api_url}/films`)
+  ky(`${SiteConfig.api_url}/films`)
     .then((res) => {
       if (!res.ok) {
         if (res.status === 404) {

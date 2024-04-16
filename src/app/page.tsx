@@ -15,11 +15,11 @@ export default function Home() {
         <Typography variant="h2" className="mb-2">
           Might the force be with you.
         </Typography>
-        <Typography className="text-gray-400">
+        <Typography className="text-muted-foreground">
           This small application is a React playground for using NextJs and
           other components based on the latest standards.
         </Typography>
-        <Typography className="text-gray-400">
+        <Typography className="text-muted-foreground">
           It consumes the{" "}
           <a
             href="https://swapi.dev/"
@@ -46,7 +46,7 @@ export default function Home() {
           <Rocket />
           Get started
         </Typography>
-        <Typography className="text-gray-400">
+        <Typography className="text-muted-foreground">
           Select a route to start your journey in the Star Wars universe:
         </Typography>
         <div className="mt-4 flex gap-2">

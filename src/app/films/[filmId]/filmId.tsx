@@ -84,7 +84,7 @@ export default function FilmId({ id }: { id: string }) {
           {film.title}
         </Typography>
         <Typography>Episode: {film.episode_id}</Typography>
-        <Typography className="text-gray-400">
+        <Typography className="text-muted-foreground">
           Release date:{" "}
           {new Date(Date.parse(film.release_date)).toLocaleDateString()}
         </Typography>

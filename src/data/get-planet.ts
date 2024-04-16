@@ -1,10 +1,11 @@
 import { SiteConfig } from "@/lib/site-config";
 import { Planet, PlanetScheme } from "@/types/planet.schema";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import ky from "ky";
 import { notFound } from "next/navigation";
 
 export const getPlanet: (id: string) => Promise<Planet> = async (id: string) =>
-  fetch(`${SiteConfig.api_url}/planets/${id}`)
+  ky(`${SiteConfig.api_url}/planets/${id}`)
     .then((res) => {
       if (!res.ok) {
         if (res.status === 404) {
