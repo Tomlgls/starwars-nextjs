@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { Eclipse, Film, Rocket } from "lucide-react";
+import { Eclipse, Film, FlaskConical, Rocket } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -156,6 +156,42 @@ export default function Home() {
               width={64}
             />
           </a>
+        </div>
+        <div className="mt-12">
+          <Typography variant="h3" className="mb-2">
+            Testing libraries
+          </Typography>
+          <Typography className="mb-4  inline-flex items-center gap-2 text-sm font-normal italic text-muted-foreground">
+            <FlaskConical size={15} /> Coming soon, in progress...
+          </Typography>
+          <div className="flex flex-wrap gap-4 lg:gap-8">
+            <a
+              href="https://testing-library.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/testing-library.svg"
+                alt="Testing Library"
+                className="size-16"
+                height={64}
+                width={64}
+              />
+            </a>
+            <a
+              href="https://jestjs.io/fr/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/jest.svg"
+                alt="Testing Library"
+                className="size-16"
+                height={64}
+                width={64}
+              />
+            </a>
+          </div>
         </div>
       </section>
     </div>

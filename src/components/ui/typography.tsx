@@ -32,6 +32,7 @@ const typographyVariants = cva("", {
       small: "text-sm leading-none",
       muted: "text-sm text-muted-foreground",
       link: "font-medium text-indigo-500 hover:underline",
+      span: "",
     },
   },
   defaultVariants: {
@@ -58,6 +59,7 @@ const defaultElementMapping: Record<
   muted: "p",
   link: "a",
   base: "p",
+  span: "span",
 } as const;
 
 const getDefaultElement = (variant: TypographyCvaProps["variant"]) => {};
