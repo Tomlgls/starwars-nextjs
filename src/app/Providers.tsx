@@ -65,9 +65,6 @@ export const Providers = ({ children }: PropsWithChildren) => {
   //       render if it suspends and there is no boundary
   const [queryClient] = useState(getQueryClient);
 
-  // Create a Jotai store
-  // const store = createStore();
-
   return (
     <JotaiProviders>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
