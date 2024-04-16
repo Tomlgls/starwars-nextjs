@@ -1,4 +1,17 @@
+# Star wars API
+
+This small application is a React playground for using NextJs and other components based on the latest standards.
+
+It consumes the [https://swapi.dev/](https://swapi.dev/) API for get information about the Star Wars universe.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## DEMO
+
+🚀 [Live demo](https://starwars-nextjs-pi.vercel.app/)
+
+
+
 
 ## Getting Started
 
