@@ -11,9 +11,9 @@ export const Footer = () => {
           <Link href="/">
             <Image
               src="/images/star-wars-logo.svg"
-              className="size-110"
-              width={110}
-              height={70}
+              className="size-auto max-w-[110px]"
+              width={0}
+              height={0}
               alt="App logo"
               priority
             />

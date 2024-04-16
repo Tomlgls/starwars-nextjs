@@ -5,7 +5,8 @@ import ky from "ky";
 import { notFound } from "next/navigation";
 
 export const getFilm: (id: string) => Promise<Film> = async (id: string) =>
-  ky(`${SiteConfig.api_url}/films/${id}`)
+  ky
+    .get(`${SiteConfig.api_url}/films/${id}`)
     .then((res) => {
       if (!res.ok) {
         if (res.status === 404) {

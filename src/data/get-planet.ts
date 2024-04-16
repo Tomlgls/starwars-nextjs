@@ -5,7 +5,8 @@ import ky from "ky";
 import { notFound } from "next/navigation";
 
 export const getPlanet: (id: string) => Promise<Planet> = async (id: string) =>
-  ky(`${SiteConfig.api_url}/planets/${id}`)
+  ky
+    .get(`${SiteConfig.api_url}/planets/${id}`)
     .then((res) => {
       if (!res.ok) {
         if (res.status === 404) {

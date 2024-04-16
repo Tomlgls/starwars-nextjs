@@ -11,7 +11,8 @@ import { notFound } from "next/navigation";
 export const getPlanets: (page?: string) => Promise<PlanetsResponse> = async (
   page: string = "1"
 ) =>
-  ky(`${SiteConfig.api_url}/planets?page=${page}`)
+  ky
+    .get(`${SiteConfig.api_url}/planets?page=${page}`)
     .then((res) => {
       if (!res.ok) {
         if (res.status === 404) {
