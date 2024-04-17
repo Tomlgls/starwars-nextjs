@@ -12,7 +12,7 @@ const CommentsScheme = z.record(
 
 type Comments = z.infer<typeof CommentsScheme>;
 
-const defaultComments = atom<Comments>({});
+const commentsAtom = atom<Comments>({});
 
-export { defaultComments };
+export { commentsAtom };
 export type { Comments };

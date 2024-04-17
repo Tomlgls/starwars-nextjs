@@ -1,7 +1,7 @@
 "use client";
 
 import Loading from "@/app/loading";
-import { Comments, defaultComments } from "@/atoms/films-atoms";
+import { Comments, commentsAtom } from "@/atoms/films-atoms";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import {
   Layout,
@@ -38,7 +38,7 @@ const defaultComment = "";
 export default function FilmId({ id }: { id: string }) {
   const { error, data: film, isPending } = useFilm(id);
 
-  const [comments, setComments] = useAtom<Comments>(defaultComments); // Comments are stored in the global state using Jotai
+  const [comments, setComments] = useAtom<Comments>(commentsAtom); // Comments are stored in the global state using Jotai
   const [comment, setComment] = useState<string>(defaultComment);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

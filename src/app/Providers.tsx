@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Provider as JotaiProvider, createStore } from "jotai";
+import { Provider as JotaiProvider } from "jotai";
 import { ThemeProvider } from "next-themes";
 import { PropsWithChildren, useState } from "react";
 
@@ -45,18 +45,6 @@ function getQueryClient() {
   }
 }
 
-const JotaiProviders = ({ children }: PropsWithChildren) => {
-  // Create a Jotai store
-  const store = createStore();
-
-  console.log(
-    "%c Jotai store: Initialized.",
-    "background: #222; color: #03DAC9"
-  );
-
-  return <JotaiProvider store={store}>{children}</JotaiProvider>;
-};
-
 // This is a custom provider that wraps all of our other providers
 export const Providers = ({ children }: PropsWithChildren) => {
   // NOTE: Avoid useState when initializing the query client if you don't
@@ -66,13 +54,13 @@ export const Providers = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(getQueryClient);
 
   return (
-    <JotaiProviders>
+    <JotaiProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           {children}
         </QueryClientProvider>
       </ThemeProvider>
-    </JotaiProviders>
+    </JotaiProvider>
   );
 };
